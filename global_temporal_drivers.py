@@ -24,11 +24,13 @@ def main():
 	hourly_dict_friday = {}
 	hourly_dict_saturday = {}
 	hourly_dict_sunday = {}
+	total_num_drivers
 	with open('../../Data/significant_drivers.csv') as f_drivers:
 		drive_read = csv.reader(f_drivers,delimiter=',')
 		for row in drive_read:
-			drive_read[row[0]] = row[1]
+			drive_dict[row[0]] = row[1]
 	# Write the Hours and Distance Logs
+	total_num_drivers = len(drive_dict)
 	for i in range(12):
 		with open('../../Data/trip_data_'+str(i+1)+'.csv') as f_data:
 			rowreader = csv.reader(f_data,delimiter=',')
@@ -229,3 +231,99 @@ def main():
 
 
 	# Write the Dicts into 3 csv files that can be read by R
+
+	row_header = ['hours_pdf','hours_cond_avg','hours_uncond_avg','hours_fraction','distance_pdf','distance_cond_avg','distance_uncond_avg','distance_fraction','income_pdf','income_cond_avg','income_uncond_avg','income_fraction']
+
+	with open('../../Data/global_hourly_weekday.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in hourly_dict_weekday:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in hourly_dict_weekday:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
+
+
+	with open('../../Data/global_hourly_friday.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in hourly_dict_friday:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in hourly_dict_friday:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
+
+
+	with open('../../Data/global_hourly_saturday.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in hourly_dict_saturday:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in hourly_dict_saturday:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
+
+
+	with open('../../Data/global_hourly_sunday.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in hourly_dict_sunday:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in hourly_dict_sunday:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
+
+    with open('../../Data/global_weekly.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in weekly_dict:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in weekly_dict:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
+
+    
+    with open('../../Data/global_monthly.csv','w') as f_hour:
+		row_writer = csv.writer(f_hour,delimiter=',')
+		row_writer.writerow(row_header)
+		norm_const_hours = 0
+		norm_const_dist = 0
+		norm_const_income = 0
+		for entries in hourly_dict_monthly:
+			norm_const_hours += entries[0]
+			norm_const_dist += entries[2]
+			norm_const_income += entries[4]
+		for rows in hourly_dict_monthly:
+
+			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
+			row_writer.writerow(local_row_write)
