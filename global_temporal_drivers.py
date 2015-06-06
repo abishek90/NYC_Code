@@ -11,7 +11,33 @@
 
 def getDay(month,date):
 # Returns either 'Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday,'Friday','Saturday'
-	return day 
+# Compute the number of days 
+	month = month -1
+	days_in_a_month = [31 28 31 30 31 30 31 31 30 31 30 31]
+	num_days_passed = 0
+	for i in range(13):
+		if (i < month):
+			num_days_passed += days_in_a_month[i]
+		else:
+			num_days_passed = date-1
+		rem = num_days_passed%7
+		if rem ==0 :
+			day = 'Tuesday'
+		elif rem == 1:
+			day = 'Wednesday'
+		elif rem == 2:
+			day = 'Thursday'
+		elif rem == 3:
+			day = 'Friday'
+		elif rem == 4:
+			day = 'Saturday'
+		elif rem == 5:
+			day = 'Sunday'
+		elif rem == 6:
+			day = 'Monday'
+
+
+		return day 
 
 
 def main():
@@ -61,6 +87,8 @@ def main():
                     	weekly_dict[day_pickup] = local_week_row
 
 
+
+
                     if hour_pickup in hourly_dict_weekday:
                     	# Update the Existing Record
                     	local_week_row  = hourly_dict_weekday[hour_pickup]
@@ -90,7 +118,7 @@ def main():
                     	local_week_row = [trip_duration,1,trip_duration,1,0,0]
                     	hourly_dict_friday[hour_pickup] = local_week_row
 
-                    if hour_pickup in hourly_dict_saturday:
+                    if hour_pickup in hourly_dict_saturday :
                     	# Update Record
                     	local_week_row = hourly_dict_saturday[hour_pickup]
                     	local_week_row[0] += trip_duration
@@ -327,3 +355,7 @@ def main():
 
 			local_row_write = [ rows[0]/norm_const_hours, rows[0]/rows[1], rows[0]/total_num_drivers , rows[2]/norm_const_dist, rows[2]/rows[3], rows[2]/total_num_drivers, rows[4]/norm_const_income,rows[4]/rows[5], rows[4]/total_num_drivers  ]
 			row_writer.writerow(local_row_write)
+
+
+if __name__ == '__main__':
+  main()
