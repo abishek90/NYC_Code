@@ -56,7 +56,7 @@ def test_uniqueness(col_name,fname):
 				# if count == 31:
 				# 	print len(sorted_dict)
 				# 	break
-				if ite[1] < 6000:
+				if ite[1] < 13000:
 					print count
 					break
 
