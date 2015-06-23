@@ -3,6 +3,44 @@
 import csv
 import sys
 
+
+def test_validity(row):
+		judgement = 'true'
+		try:
+			t1 = float(row[10])
+		except ValueError:
+				judgement = 'false'
+				return judgement
+		try:
+			t2 = float(row[11])
+		except ValueError:
+				judgement = 'false'
+				return judgement
+			
+		try:
+			t3 = float(row[12])
+		except ValueError:
+			judgement = 'false'
+			return judgement
+		try:
+			t4 = float(row[13])
+		except ValueError:
+			judgement = 'false'
+			return judgement
+
+
+		if t1 < -86 or t1 > -61:
+			judgement = 'false'
+		if t3 < -86 or t3 > -61:
+			judgement = 'false'
+		if t2 > 54 or t2 < 29:
+			judgement = 'false'
+		if t4 > 54 or t4 < 29:
+			
+			judgement = 'false'
+		return judgement
+
+
 def mykey(local_list):
 	return local_list[1]
 
@@ -38,39 +76,41 @@ def test_uniqueness(col_name):
 							nfile_flag = 1
 							continue
 						if row[col_index] in col_dict:
-							col_dict[row[col_index]]+=1
+							if test_validity(row) == 'true':
+								col_dict[row[col_index]]+=1
 						else:
-							col_dict[row[col_index]]=1
+							if test_validity(row) == 'true':
+								col_dict[row[col_index]]=1
 
 
 
 
 
 
-		fname = 'fare'
-		for i in range(12):
-			with open('../../Data/trip_'+fname+'_'+str(i+1)+'.csv') as f_data:
-				rowreader = csv.reader(f_data,delimiter=',')
+		# fname = 'fare'
+		# for i in range(12):
+		# 	with open('../../Data/trip_'+fname+'_'+str(i+1)+'.csv') as f_data:
+		# 		rowreader = csv.reader(f_data,delimiter=',')
 				
-				nfile_flag = 0
-				for row in rowreader:
-					if ini_flag == 0:
-						if col_name in row:
-							col_index = row.index(col_name)
-						else:
-							print str(i+1) + '  ' + row[3]
-							sys.exit(0)
+		# 		nfile_flag = 0
+		# 		for row in rowreader:
+		# 			if ini_flag == 0:
+		# 				if col_name in row:
+		# 					col_index = row.index(col_name)
+		# 				else:
+		# 					print str(i+1) + '  ' + row[3]
+		# 					sys.exit(0)
 						
-						ini_flag = 1
-						continue
-					else:
-						if nfile_flag == 0:
-							nfile_flag = 1
-							continue
-						if row[col_index] in col_dict:
-							col_dict[row[col_index]]+=1
-						else:
-							col_dict[row[col_index]]=1
+		# 				ini_flag = 1
+		# 				continue
+		# 			else:
+		# 				if nfile_flag == 0:
+		# 					nfile_flag = 1
+		# 					continue
+		# 				if row[col_index] in col_dict:
+		# 					col_dict[row[col_index]]+=1
+		# 				else:
+		# 					col_dict[row[col_index]]=1
 		
 		
 
@@ -88,7 +128,7 @@ def test_uniqueness(col_name):
 				# if count == 31:
 				# 	print len(sorted_dict)
 				# 	break
-				if ite[1] < 13000:
+				if ite[1] < 500:
 					print count
 					break
 

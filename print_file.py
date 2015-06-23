@@ -3,7 +3,7 @@ import sys
 import csv
 st1 = "";
 st2 = ""
-with open('../../Data/trip_data_3.csv') as f_trip:
+with open('../../Data/trip_data_1.csv') as f_trip:
 	#with open('../../Data/trip_fare_1.csv') as f_fare
 	
 
@@ -19,16 +19,17 @@ with open('../../Data/trip_data_3.csv') as f_trip:
 				toll_index = row.index(' tolls_amount')
 			if ' hack_license' in row:
 				license_index = row.index(' hack_license')
-		if line_c > 1:
+		if line_c == 2212381:
 
-			print str(row[5]) 
+			print float(row[12]) 
+			break
 		#print row.index(' rate_code')
 
 		st1 = row[3]
 		line_c +=1
 		# Write this row into a text file
-		if line_c == 3:
-			break
+		#if line_c == 12:
+			#break
 
 # with open('../../Data/trip_data_1.csv') as f_data2:
 # 	rowreader = csv.reader(f_data2,delimiter=',')
